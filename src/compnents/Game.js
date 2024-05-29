@@ -3,12 +3,17 @@ import Modal from 'react-modal'
 
 import Board from './Board.js'
 import Logo from './Logo.js'
+import Gif from './Gif.js'
+
 
 import calculateWinner from '../../helpers/calculateWinner.js'
 
 import bluesLogo from '../images/St._Louis_Blues_logo.png'
 import cardinalsLogo from '../images/St._Louis_Cardinals_logo.png'
 import backgroundImage from '../images/St_Louis_Arch.jpg';
+import bluesGif from '../images/Blues_Louie.gif'
+import cardinalsGif from '../images/Cardinals.gif'
+
 
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
@@ -22,7 +27,8 @@ function Game() {
         textAlign: 'center',
         backgroundImage: `url(${backgroundImage})`, // Set the background image
         backgroundSize: 'cover', // Cover the entire area
-        backgroundPosition: 'center', // Center the image
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center', // Center the image
     };
 
     const [board, setBoard] = useState(Array(9).fill(null))
@@ -83,9 +89,32 @@ function Game() {
                     Start New Game
                 </button>
             </div>
-            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                <h2>{xIsNext ? 'Go Cardinals!!' : 'Go Blues!!'}</h2>
-                <button onClick={() => setModalIsOpen(false)}>Close</button>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+                style={{
+                content: {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    top: '50%',
+                    left: '50%',
+                    right: 'auto',
+                    bottom: 'auto',
+                    marginRight: '-50%',
+                    transform: 'translate(-50%, -50%)',
+                },
+                }}
+            >
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <h2 style={{ color: xIsNext ? 'red' : 'blue' }}>
+                        {xIsNext ? 'Go Cardinals!' : 'Go Blues!'}
+                    </h2>
+                    <h2>{xIsNext ? <Gif link={cardinalsGif} /> : <Gif link={bluesGif} />}</h2>
+                    <button onClick={() => { setModalIsOpen(false); startButton(); }}>New Game</button>
+                </div>
             </Modal>
         </div>
     )
