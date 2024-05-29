@@ -110,6 +110,9 @@ function Game() {
             >
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <h2 style={{ color: xIsNext ? 'red' : 'blue' }}>
+                        {xIsNext ? <><Logo link={cardinalsLogo} /> Wins!</> : <><Logo link={bluesLogo} /> Wins!</>}
+                    </h2>
+                    <h2 style={{ color: xIsNext ? 'red' : 'blue' }}>
                         {xIsNext ? 'Go Cardinals!' : 'Go Blues!'}
                     </h2>
                     <h2>{xIsNext ? <Gif link={cardinalsGif} /> : <Gif link={bluesGif} />}</h2>
